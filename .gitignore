@@ -1,3 +1,7 @@
+libs/yolov7/runs
+libs/yolov7/wandb
+libs/yolov7/inference
+
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
 *.jpg
 *.jpeg

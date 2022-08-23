@@ -1,0 +1,1 @@
+python train.py --workers 8 --device 0 --batch-size 8 --data /home/rtx3060/projects/datasets/light_button/LightButton.v2i.yolov7pytorch/data.yaml --img 640 640 --cfg cfg/training/yolov7.yaml --weights '' --name yolov7_lb --hyp data/hyp.scratch.p5.lb.yaml
