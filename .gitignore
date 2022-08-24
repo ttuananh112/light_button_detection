@@ -2,6 +2,8 @@ libs/yolov7/runs
 libs/yolov7/wandb
 libs/yolov7/inference
 
+weights
+
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
 *.jpg
 *.jpeg

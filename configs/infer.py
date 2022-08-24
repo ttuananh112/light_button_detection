@@ -1,0 +1,7 @@
+DEVICE = 'cpu'
+IMG_SIZE = 640
+STRIDE = 32
+
+CONF_THRESH = 0.25
+IOU_THRESH = 0.45
+MODEL_PATH = "weights/lb5/best.pt"

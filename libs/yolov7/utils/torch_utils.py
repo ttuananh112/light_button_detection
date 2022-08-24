@@ -360,8 +360,7 @@ class TracedModel(nn.Module):
         rand_example = torch.rand(1, 3, img_size, img_size)
         
         traced_script_module = torch.jit.trace(self.model, rand_example, strict=False)
-        #traced_script_module = torch.jit.script(self.model)
-        traced_script_module.save("traced_model.pt")
+        # traced_script_module.save("traced_model.pt")
         print(" traced_script_module saved! ")
         self.model = traced_script_module
         self.model.to(device)

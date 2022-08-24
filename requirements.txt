@@ -6,7 +6,7 @@ numpy>=1.18.5
 opencv-python>=4.1.1
 Pillow>=7.1.2
 PyYAML>=5.3.1
-requests>=2.23.0
+# requests>=2.23.0
 scipy>=1.4.1
 # torch>=1.7.0,!=1.12.0
 # torchvision>=0.8.1,!=0.13.0
@@ -37,3 +37,8 @@ thop  # FLOPs computation
 # albumentations>=1.0.3
 # pycocotools>=2.0  # COCO mAP
 # roboflow
+
+# connection
+Flask==2.2.2
+jsonpickle==2.2.0
+requests==2.27.1
