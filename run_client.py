@@ -1,16 +1,18 @@
 import cv2
 import json
+import argparse
+
 import configs.conn as conn
 import libs.connection.client as client
-
 from libs.common.viz import draw_box
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--image", type=str, help="Image's path", required=True)
+    args = parser.parse_args()
+
     addr = f'http://localhost:{conn.PORT}{conn.URL}'
-
-    img_path = "/home/anhtt163/PycharmProjects/outsource/dataset/phone/LightButton.v2i.yolov7pytorch/train/images/3383010899951_mp4-14_jpg.rf.9d0c9d552cbe5d205d21e3f2f8ae8091.jpg"
-    img = cv2.imread(img_path)
-
+    img = cv2.imread(args.image)
     response = client.send_image(addr, img)
 
     # decode response

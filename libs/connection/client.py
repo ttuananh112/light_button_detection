@@ -13,7 +13,7 @@ def send_image(
     headers = {'content-type': content_type}
 
     if isinstance(img, str):
-        img = cv2.imread(img)[:, :, ::-1]  # to RGB
+        img = cv2.imread(img)
     elif not isinstance(img, np.ndarray):
         return {"message": "wrong image's type"}
 

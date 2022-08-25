@@ -37,14 +37,14 @@ class InferenceModel:
     def _preprocess(self, img0):
         """
         Args:
-            img0: raw image np.ndarray (h, w, 3) in RGB
+            img0: raw image np.ndarray (h, w, 3) in BGR
         Returns:
             (torch.Tensor) in shape (1, 3, h, w)
         """
         # Padded resize
         img = letterbox(img0, self.img_size, stride=self.stride)[0]
-        # Convert
-        img = img.transpose(2, 0, 1)  # (3, h, w)
+        # Convert to RGB
+        img = img[:, :, ::-1].transpose(2, 0, 1)  # (3, h, w)
         img = np.ascontiguousarray(img)
         img = torch.from_numpy(img).to(self.device).float()
         # normalize
@@ -85,7 +85,7 @@ class InferenceModel:
         """
         Run inference
         Args:
-            img: np.ndarray (h, w, 3)
+            img: np.ndarray (h, w, 3) in BGR
         Returns:
 
         """
