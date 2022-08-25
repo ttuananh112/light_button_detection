@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import configs.infer as config_infer
+from typing import List
 from libs.common.viz import draw_box
 
 from utils.torch_utils import TracedModel
@@ -22,7 +23,7 @@ class InferenceModel:
         # load model
         self.model = self._load_model()
 
-    def _load_model(self):
+    def _load_model(self) -> TracedModel:
         """
         Load model and convert to traced model
         Returns:
@@ -34,7 +35,10 @@ class InferenceModel:
         model = TracedModel(ckpt, self.device, self.img_size)
         return model
 
-    def _preprocess(self, img0):
+    def _preprocess(
+            self,
+            img0: np.ndarray
+    ) -> torch.Tensor:
         """
         Args:
             img0: raw image np.ndarray (h, w, 3) in BGR
@@ -54,7 +58,11 @@ class InferenceModel:
         return img
 
     @staticmethod
-    def _postprocess(img, img0, pred):
+    def _postprocess(
+            img: torch.Tensor,
+            img0: np.ndarray,
+            pred: torch.Tensor
+    ) -> List[List]:
         """
         Args:
             img: torch.Tensor (1, 3, h, w)
@@ -81,7 +89,11 @@ class InferenceModel:
 
         return list_det
 
-    def __call__(self, img, show_img=False):
+    def __call__(
+            self,
+            img: np.ndarray,
+            show_img: bool = False
+    ):
         """
         Run inference
         Args:

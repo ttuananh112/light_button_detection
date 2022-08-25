@@ -1,10 +1,23 @@
 import cv2
 import numpy as np
 
+from typing import List
 import configs.infer as config_infer
 
 
-def draw_box(xyxys, img0):
+def draw_box(
+        xyxys: List[List],
+        img0: np.ndarray
+) -> np.ndarray:
+    """
+
+    Args:
+        xyxys: List[List] in shape [class, tl_x, tl_y, br_x, br_y]
+        img0:
+
+    Returns:
+
+    """
     img = np.copy(img0).astype(np.uint8)
     for xyxy in xyxys:
         cls = int(xyxy[0])
