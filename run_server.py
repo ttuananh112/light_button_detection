@@ -1,5 +1,5 @@
 from libs.connection.server import *
-import configs.conn as conn
+import libs.configs.conn as conn
 
 if __name__ == "__main__":
     # start flask app

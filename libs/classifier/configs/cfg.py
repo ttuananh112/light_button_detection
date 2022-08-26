@@ -1,2 +1,0 @@
-NUM_CLASS = 7
-IMG_SIZE = 32

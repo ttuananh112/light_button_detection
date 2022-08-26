@@ -3,14 +3,13 @@ import jsonpickle
 import numpy as np
 from flask import Flask, request, Response
 
-import configs.conn as conn
-import configs.infer as config_infer
+import libs.configs.conn as conn
 from libs.common.inference import InferenceModel
 
 # Initialize the Flask application
 app = Flask(__name__)
 # Load model
-model = InferenceModel(config_infer.MODEL_PATH)
+model = InferenceModel()
 
 
 # route http posts to this method

@@ -1,9 +1,10 @@
 import pytorch_lightning as pl
-
 from torch.utils.data import DataLoader
 from pytorch_lightning.callbacks import ModelCheckpoint
+
+import libs.configs.infer as config_infer
 from classifier.utils.dataset import ButtonDataset
-from classifier.model.button_classifier import ButtonClassifier
+from classifier.model.efficientnetv2 import effnetv2_tiny
 
 if __name__ == "__main__":
     # data
@@ -18,11 +19,12 @@ if __name__ == "__main__":
     val_loader = DataLoader(val_data, batch_size=32)
 
     # model
-    model = ButtonClassifier()
+    # model = ButtonClassifier()
+    model = effnetv2_tiny(num_classes=config_infer.Recognition.NUM_CLASS)
 
     checkpoint_callback = ModelCheckpoint(
         monitor='val_f1',
-        dirpath='weights',
+        dirpath='weights/efficientnetv2_tiny',
         filename='button-{epoch:02d}-{val_f1:.2f}',
         mode='max'
     )

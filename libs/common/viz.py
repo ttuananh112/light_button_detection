@@ -1,19 +1,19 @@
 import cv2
 import numpy as np
-
 from typing import List
-import configs.infer as config_infer
 
 
 def draw_box(
         xyxys: List[List],
-        img0: np.ndarray
+        img0: np.ndarray,
+        label_mapping: dict
 ) -> np.ndarray:
     """
 
     Args:
         xyxys: List[List] in shape [class, tl_x, tl_y, br_x, br_y]
         img0:
+        label_mapping:
 
     Returns:
 
@@ -26,6 +26,6 @@ def draw_box(
         img = cv2.rectangle(img, start_point, end_point, (0, 255, 0), 1)
 
         start_point[1] -= 5  # lift-up start point
-        img = cv2.putText(img, config_infer.CLASSES[cls], start_point,
+        img = cv2.putText(img, label_mapping[cls], start_point,
                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1, 1)
     return img

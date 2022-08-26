@@ -3,13 +3,13 @@ from torch import nn
 import pytorch_lightning as pl
 import torchmetrics as tm
 
-import classifier.configs as cfg
+import libs.configs.infer as config_infer
 
 
 class ButtonClassifier(pl.LightningModule):
     def __init__(self):
         super().__init__()
-        self.num_class = cfg.NUM_CLASS
+        self.num_class = config_infer.Recognition.NUM_CLASS
         self._create_model()
 
     def _create_model(self):
