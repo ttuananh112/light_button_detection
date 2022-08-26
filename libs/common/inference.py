@@ -196,7 +196,7 @@ class InferenceModel:
             out_det[i][0] = out_reg
 
         if show_img:
-            viz = draw_box(out_det, img[:, :, ::-1],
+            viz = draw_box(out_det, img0[:, :, ::-1],
                            label_mapping=config_infer.Recognition.CLASSES)
             plt.imshow(viz)
             plt.axis('off')
