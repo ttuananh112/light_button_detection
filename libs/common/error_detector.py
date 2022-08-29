@@ -144,6 +144,8 @@ class ErrorDetector:
                 "false_det": bool,
                 "message": Union[None, error_pos, str]
             }
+            error_pos should be List[Tuple]
+            each tuple is (row_index, col_index, is_on)
         """
         # do statistics
         self._stats(pred)
