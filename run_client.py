@@ -1,7 +1,6 @@
 import cv2
 import json
 import argparse
-import matplotlib.pyplot as plt
 
 import libs.configs.conn as conn
 import libs.configs.infer as config_infer
@@ -24,9 +23,6 @@ if __name__ == "__main__":
         print(*detection, sep="\n")
 
     # visualize
-    viz = draw_box(detection, img[:, :, ::-1],
+    viz = draw_box(detection, img,
                    label_mapping=config_infer.Recognition.CLASSES)
-    plt.imshow(viz)
-    plt.axis('off')
-    # plt.show()
-    plt.savefig('response.png')
+    cv2.imwrite('response.png', viz)

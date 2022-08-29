@@ -2,7 +2,6 @@ import abc
 import cv2
 import torch
 import numpy as np
-import matplotlib.pyplot as plt
 
 from typing import List, Union
 import libs.configs.infer as config_infer
@@ -115,7 +114,7 @@ class DetectionModel(BaseModel):
     def __call__(
             self,
             img: np.ndarray,
-            show_img: bool = False
+            save_path: str = None
     ):
         """
         Run inference
@@ -128,13 +127,10 @@ class DetectionModel(BaseModel):
         pred = self.model(proc_img)[0]  # get the first batch
         out = self._postprocess(proc_img, img, pred)  # post-process to get output
 
-        if show_img:
-            viz = draw_box(out, img[:, :, ::-1],
+        if save_path:
+            viz = draw_box(out, img,
                            label_mapping=config_infer.Detection.CLASSES)
-            plt.imshow(viz)
-            plt.axis('off')
-            # plt.show()
-            plt.savefig('detection.png')
+            cv2.imwrite(save_path, viz)
         return out
 
 
@@ -167,17 +163,10 @@ class RecognitionModel(BaseModel):
         max_idx = torch.argmax(pred)
         return int(max_idx)
 
-    def __call__(self, img: np.ndarray, show_img: bool = False):
+    def __call__(self, img: np.ndarray):
         proc_img = self._preprocess(img)  # pre-processed image
         pred = self.model(proc_img)[0]  # get the first batch
         out = self._postprocess(pred)  # post-process to get output
-
-        if show_img:
-            plt.imshow(img[:, :, ::-1])
-            plt.axis('off')
-            plt.title(f"{config_infer.Recognition.CLASSES[out]}")
-            # plt.show()
-            plt.savefig('recognition.png')
         return out
 
 
@@ -186,7 +175,11 @@ class InferenceModel:
         self.detection = DetectionModel()
         self.recognition = RecognitionModel()
 
-    def __call__(self, img: np.ndarray, show_img: bool = False):
+    def __call__(
+            self,
+            img: np.ndarray,
+            save_path: str = None
+    ):
         img0 = np.copy(img)
         out_det = self.detection(img)
         for i, det in enumerate(out_det):
@@ -195,11 +188,8 @@ class InferenceModel:
             out_reg = self.recognition(cropped)
             out_det[i][0] = out_reg
 
-        if show_img:
-            viz = draw_box(out_det, img0[:, :, ::-1],
+        if save_path is not None:
+            viz = draw_box(out_det, img0,
                            label_mapping=config_infer.Recognition.CLASSES)
-            plt.imshow(viz)
-            plt.axis('off')
-            # plt.show()
-            plt.savefig('full.png')
+            cv2.imwrite(save_path, viz)
         return out_det
