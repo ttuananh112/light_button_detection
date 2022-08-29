@@ -19,3 +19,5 @@ class Recognition:
     DEVICE = 'cuda:0'  # 'cpu'
     IMG_SIZE = 32
     MODEL_PATH = "libs/classifier/weights/efficientnetv2_tiny/button-epoch=42-val_f1=0.99.ckpt"
+
+    ON_CLASSES = [0, 2]
