@@ -52,13 +52,13 @@ class ErrorDetector:
     def _sort(self, pred):
         if not self._check_num_button(pred):
             return {"false_det": True,
-                    "error": "num_pred != num_ref"}
+                    "message": "num_pred != num_ref"}
 
         sorted_row = self._sort_by_y()
 
         if not self._check_num_each_row(sorted_row):
             return {"false_det": True,
-                    "error": "num_pred each row is not aligned to num_ref"}
+                    "message": "num_pred each row is not aligned to num_ref"}
 
         sorted_button = self._sort_by_x(sorted_row)
 
@@ -142,13 +142,19 @@ class ErrorDetector:
         Returns:
             {
                 "false_det": bool,
-                "error": Union[None, error_pos]
+                "message": Union[None, error_pos, str]
             }
         """
         # do statistics
         self._stats(pred)
 
         bboxes = self._sort(pred)
+        # error in detection, return message
+        if isinstance(bboxes, dict):
+            return bboxes
+
+        # check error button if suitable detection
         print(*bboxes, sep="\n")
         err = self._check_error(bboxes)
-        return err
+        return {"false_det": False,
+                "message": err}
