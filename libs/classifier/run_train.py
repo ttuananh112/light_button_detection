@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     checkpoint_callback = ModelCheckpoint(
         monitor='val_f1',
-        dirpath='weights/efficientnetv2_tiny',
+        dirpath='weights/efficientnetv2_tiny_poc',
         filename='button-{epoch:02d}-{val_f1:.2f}',
         mode='max'
     )
