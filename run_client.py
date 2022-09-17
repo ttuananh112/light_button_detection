@@ -20,7 +20,7 @@ if __name__ == "__main__":
         # decode response
         decoded_res = json.loads(response.text)
         detection = decoded_res["detection"]
-        print(*detection, sep="\n")
+        print(json.dumps(decoded_res, sort_keys=True, indent=4))
 
     # visualize
     viz = draw_box(detection, img,
