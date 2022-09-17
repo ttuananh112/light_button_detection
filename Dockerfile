@@ -13,3 +13,6 @@ COPY . /workspace/api
 RUN pip install -r /workspace/api/requirements.txt
 
 ENV PYTHONPATH=/workspace/api:/workspace/api/libs:/workspace/api/libs/yolov7
+WORKDIR /workspace/api
+
+ENTRYPOINT python run_server.py
